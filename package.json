@@ -24,7 +24,7 @@
   "scripts": { "start": "node bot.js" },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NightApps/piNightBot/issues"
+    "url": "https://github.com/NightApps/PreviewBot/issues"
   },
-  "homepage": "https://github.com/NightApps/piNightBot#readme"
+  "homepage": "https://github.com/NightApps/PreviewBot#readme"
 }
