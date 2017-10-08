@@ -1,0 +1,30 @@
+{
+  "name": "PreviewBot",
+  "version": "2.0.0",
+  "description": "Telegram Bot by Night Apps",
+  "main": "bot.js",
+  "engines": { "node": "8.4.0" },
+  "dependencies": {
+    "telegraf": "*",
+    "fluent-ffmpeg": "*"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NightApps/PreviewBot.git"
+  },
+  "keywords": [
+    "night",
+    "bot",
+    "node",
+    "telegram",
+    "telegraf"
+  ],
+  "author": "night.tf",
+  "scripts": { "start": "node bot.js" },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NightApps/piNightBot/issues"
+  },
+  "homepage": "https://github.com/NightApps/piNightBot#readme"
+}
