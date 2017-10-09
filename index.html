@@ -1,1 +1,56 @@
-hello world
+<style>
+#fedoraGlow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: black;
+	z-index: 1000;
+}
+ h1 .icon-fedora{
+  color: white;
+	width: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	top: 45%;
+	left: 60%;
+	padding: 20px;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #f06292, 0 0 35px #f06292, 0 0 40px #f06292, 0 0 50px #f06292, 0 0 75px #f06292;
+  -webkit-transition: text-shadow 1s ease;
+	-moz-transition: text-shadow 1s ease;
+	-o-transition: text-shadow 1s ease;
+	transition: text-shadow 1s ease;
+}
+
+h1 .icon-fedora:hover{
+	text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 70px #f06292, 0 0 80px #f06292, 0 0 100px #f06292, 0 0 150px #f06292, 0 0 200px #f06292;
+	-webkit-transition: text-shadow 0.5s ease;
+	-moz-transition: text-shadow 0.5s ease;
+	-o-transition: text-shadow 0.5s ease;
+	transition: text-shadow 0.5s ease;
+}
+@font-face {
+    font-family: 'Glyphter';
+    src: url('Glyphter.eot');
+    src: url('Glyphter.eot?#iefix') format('embedded-opentype'),
+         url('Glyphter.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+[class*='icon-']:before{
+	display: inline-block;
+   font-family: 'Glyphter';
+   font-style: normal;
+   font-weight: normal;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale
+}
+.icon-fedora:before{content:'\0046';}
+</style>
+<body style="background:black;">
+<h1 style="font-size:512;">
+<i style="color:white;"class="icon-fedora"></i>
+<h1>
+</body>

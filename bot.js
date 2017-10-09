@@ -1,13 +1,13 @@
 var dumpChannel = -239281784,
 	musicChannel = -1001091002937,
-	token = process.env.musicToken;
+	token = '426316387:AAELVSI2Xsf4-tyAJ9MxjZIjFrMtl1OTgZQ';
 
 const http = require('http'),
  https = require('https'),
  fs = require("fs"),
  Telegraf = require('telegraf'),
  { Extra, Markup } = require('telegraf'),
- { spawn } = require('child_process'),
+ { exec, execSync, spawn, spawnSync } = require('child_process'),
 ffmpeg = require('fluent-ffmpeg');
 
 var url = '';
@@ -26,7 +26,8 @@ bot.catch((err) => {
 bot.on('audio', async (ctx) => {
 	//return console.log(ctx.message.audio.file_id);
 	let user = await ctx.telegram.getChatMember(-1001091002937,ctx.message.from.id);
-	if (user.can_post_messages===true) convert3(ctx, ctx.message);
+	//console.log(user);
+	if (user.can_post_messages===true || user.status==='creator') convert3(ctx, ctx.message);
 });
 bot.on('channel_post', (ctx) => {
 	//return console.log(ctx.update.channel_post);
@@ -44,14 +45,12 @@ function convert3(ctx, message){
 		https.get('https://api.telegram.org/file/bot'+bot.telegram.token+'/'+file.file_path, function(response) {
 		var saveFile = response.pipe(fs.createWriteStream(filename));
 		saveFile.on('finish', function () {
-			ffmpeg().input(fs.createReadStream('./'+filename)).audioCodec('libopus').seekInput(previewTime).noVideo().inputOptions(['-t 30', '-ac 1']).output(filename+'.ogg').on('end', function() {
+			ffmpeg().input(fs.createReadStream('./'+filename)).audioChannels(1).audioCodec('libopus').seekInput(previewTime).noVideo().inputOptions(['-t 30', '-ac 1']).output(filename+'.ogg').on('end', function() {
 			console.log('Finished Converting! let\'s Send this over.');
 			ctx.telegram.sendVoice(-239281784,{
 				source: fs.readFileSync(filename+'.ogg'),
 				disable_notification: true
 			}).then((msg) =>{
-				fs.unlink(filename);
-				fs.unlink(filename+'.ogg');
 				voiceId = msg.voice.file_id; 
 				delMsg = msg.message_id;
 				ctx.replyWithVoice(voiceId, {
@@ -60,7 +59,8 @@ function convert3(ctx, message){
 					disable_notification: true
 				}).then((replied) =>{
 					ctx.telegram.deleteMessage(-239281784, msg.message_id).then((deleted)=>{
-						console.log('all done!');
+						console.log('all done! let\'s make sure to folder isn\'t too bloated.');
+							checkFolder();
 					})
 				})
 			});
@@ -70,7 +70,16 @@ function convert3(ctx, message){
 	});
 
 }
-
+function checkFolder(){
+fs.readdir('./', (err, files) => {
+	console.log(files.length);
+  if (files.length>8){
+	  console.log('cleaning folders');
+	  execSync('find . -name "*.mp3" -type f -delete');
+	  execSync('find . -name "*.ogg" -type f -delete');
+  }
+});
+}
 bot.startPolling();
 fs.readFile('./index.html', function (err, html) {
     if (err) {
@@ -84,10 +93,9 @@ fs.readFile('./index.html', function (err, html) {
 });
 
 setInterval(function() {
-    http.get("http://kapmusicbot.glitch.me/");
+    http.get("http://kapperbotmusic.glitch.me/");
   console.log('pingpong');
 }, 200000);
-
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
