@@ -28,6 +28,7 @@ bot.on('audio', async (ctx) => {
 	let user = await ctx.telegram.getChatMember(-1001091002937,ctx.message.from.id);
 	//console.log(user);
 	if (user.can_post_messages===true || user.status==='creator') convert3(ctx, ctx.message);
+	if (user.can_post_messages===true || user.status==='member') convert3(ctx, ctx.message);
 });
 bot.on('channel_post', (ctx) => {
 	//return console.log(ctx.update.channel_post);
